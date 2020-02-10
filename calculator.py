@@ -58,17 +58,24 @@ def checkOperators(expList):
 		if((expression[index-1] in "+-") and (expression[index] in "*/")): return False
 		#Operators and parenthesis
 		if(((expression[index-1]=="(") and (expression[index] in "*/")) or ((expression[index-1] in "*/+-") and (expression[index]==")"))): 
-			return False 
+			return False 			
 	expList[0] = expression
 	return True
 
 def checkDecimalPoint(expList):
 	expression = expList[0]
 	index = 0
-	if(expression[0]=="." or expression[-1]=="."): return False
-	for char in expression: #If there
-		if((expression[index]==".") and (index != 0) and (index != len(expression)-1) and (not(expression[index-1] in "0123456789" and expression[index+1] in "0123456789"))):
-			return False
+	validPointApperance="false";
+	#We make sure that, once received a point, we do not receive more on the same number
+	for char in expression:
+		if(expression[index]=="."):
+			if(validPointApperance=="false"):	
+				validPointApperance="true"
+			else:
+				return False
+		elif (expression[index] in "+-/*()"):
+			validPointApperance="false"		
+		index-=-1
 	return True
 
 #CALCULATIONS
