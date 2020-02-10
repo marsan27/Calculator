@@ -65,16 +65,16 @@ def checkOperators(expList):
 def checkDecimalPoint(expList):
 	expression = expList[0]
 	index = 0
-	validPointApperance="false";
+	validPointApperance=False
 	#We make sure that, once received a point, we do not receive more on the same number
 	for char in expression:
 		if(expression[index]=="."):
-			if(validPointApperance=="false"):	
-				validPointApperance="true"
+			if(not validPointApperance):	
+				validPointApperance=True
 			else:
 				return False
 		elif (expression[index] in "+-/*()"):
-			validPointApperance="false"		
+			validPointApperance=False	
 		index-=-1
 	return True
 
